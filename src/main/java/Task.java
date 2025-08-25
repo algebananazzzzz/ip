@@ -1,10 +1,12 @@
-public abstract class Task {
-    private String description;
-    private boolean isDone;
+abstract class Task {
+    protected String description;
+    protected boolean isDone;
+    protected TaskType type;  // <-- enum here
 
-    public Task(String description) {
+    public Task(String description, TaskType type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
 
     public void markAsDone() {
@@ -16,13 +18,11 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return isDone ? "X" : " ";
     }
-
-    public abstract String getTypeIcon();
 
     @Override
     public String toString() {
-        return "[" + getTypeIcon() + "][" + getStatusIcon() + "] " + description;
+        return "[" + type.getIcon() + "][" + getStatusIcon() + "] " + description;
     }
 }
