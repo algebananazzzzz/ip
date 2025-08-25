@@ -52,13 +52,50 @@ public class FloydAI {
                 } catch (Exception e) {
                     System.out.println("Invalid task number!");
                 }
-            } else {
-                // Add task
-                Task t = new Task(input);
+            } else if (input.startsWith("todo ")) {
+                String desc = input.substring(5).trim();
+                Task t = new Todo(desc);
                 tasks.add(t);
                 System.out.println("____________________________________________________________");
-                System.out.println(" added: " + input);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + t);
+                System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 System.out.println("____________________________________________________________");
+            } else if (input.startsWith("deadline ")) {
+                // Expected format: deadline <desc> /by <time>
+                try {
+                    String[] parts = input.substring(9).split(" /by ", 2);
+                    String desc = parts[0].trim();
+                    String by = parts[1].trim();
+                    Task t = new Deadline(desc, by);
+                    tasks.add(t);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + t);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Invalid deadline format! Use: deadline <desc> /by <time>");
+                }
+            } else if (input.startsWith("event ")) {
+                // Expected format: event <desc> /from <start> /to <end>
+                try {
+                    String[] parts = input.substring(6).split(" /from | /to ");
+                    String desc = parts[0].trim();
+                    String from = parts[1].trim();
+                    String to = parts[2].trim();
+                    Task t = new Event(desc, from, to);
+                    tasks.add(t);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Got it. I've added this task:");
+                    System.out.println("   " + t);
+                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                } catch (Exception e) {
+                    System.out.println("Invalid event format! Use: event <desc> /from <start> /to <end>");
+                }
+            } else {
+                System.out.println("Unknown command!");
             }
         }
         sc.close();
