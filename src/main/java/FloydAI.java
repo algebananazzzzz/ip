@@ -2,10 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FloydAI {
+    private static Storage storage = new Storage("./data/FLOYDAI.txt");
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        tasks = new ArrayList<>(storage.load());
 
         // Greeting
         printBox("Hello! I'm FloydAI\nWhat can I do for you?");
@@ -59,6 +62,7 @@ public class FloydAI {
         int index = parseIndex(input.substring(5));
         Task t = tasks.get(index);
         t.markAsDone();
+        storage.save(tasks);
         printBox("Nice! I've marked this task as done:\n  " + t);
     }
 
@@ -66,6 +70,7 @@ public class FloydAI {
         int index = parseIndex(input.substring(7));
         Task t = tasks.get(index);
         t.markAsNotDone();
+        storage.save(tasks);
         printBox("OK, I've marked this task as not done yet:\n  " + t);
     }
 
@@ -76,6 +81,7 @@ public class FloydAI {
         }
         Task t = new Todo(desc);
         tasks.add(t);
+        storage.save(tasks);
         printAddedTask(t);
     }
 
@@ -91,6 +97,7 @@ public class FloydAI {
         }
         Task t = new Deadline(desc, by);
         tasks.add(t);
+        storage.save(tasks);
         printAddedTask(t);
     }
 
@@ -108,12 +115,14 @@ public class FloydAI {
         }
         Task t = new Event(desc, from, to);
         tasks.add(t);
+        storage.save(tasks);
         printAddedTask(t);
     }
 
     private static void handleDelete(String input) throws FloydAIException {
         int index = parseIndex(input.substring(6));
         Task removed = tasks.remove(index);
+        storage.save(tasks);
         printBox("Noted. I've removed this task:\n  " + removed + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
