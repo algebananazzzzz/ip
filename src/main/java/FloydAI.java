@@ -29,6 +29,8 @@ public class FloydAI {
                     handleDeadline(input);
                 } else if (input.startsWith("event")) {
                     handleEvent(input);
+                } else if (input.startsWith("delete")) {   // ✅ new feature
+                    handleDelete(input);
                 } else {
                     throw new FloydAIException("I don’t understand that command. Try 'todo', 'deadline', 'event', 'list', 'mark', or 'unmark'.");
                 }
@@ -107,6 +109,12 @@ public class FloydAI {
         Task t = new Event(desc, from, to);
         tasks.add(t);
         printAddedTask(t);
+    }
+
+    private static void handleDelete(String input) throws FloydAIException {
+        int index = parseIndex(input.substring(6));
+        Task removed = tasks.remove(index);
+        printBox("Noted. I've removed this task:\n  " + removed + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     // === Helpers ===
