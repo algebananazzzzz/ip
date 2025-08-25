@@ -21,6 +21,12 @@ abstract class Task {
         return isDone ? "X" : " ";
     }
 
+    public boolean isDone() { return isDone; }
+
+    public String getDescription() { return description; }
+
+    public TaskType getType() { return type; }
+
     @Override
     public String toString() {
         return "[" + type.getIcon() + "][" + getStatusIcon() + "] " + description;
