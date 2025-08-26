@@ -1,2 +1,2 @@
-DEADLINE|0|return book|2025-08-28
-EVENT|0|project meeting|2025-08-26|2025-08-26
+D | 0 | return book | 2025-08-28
+E | 0 | project meeting | 2025-08-26 | 2025-08-26
