@@ -1,4 +1,6 @@
-abstract class Task {
+package floydai.task;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected TaskType type;  // <-- enum here

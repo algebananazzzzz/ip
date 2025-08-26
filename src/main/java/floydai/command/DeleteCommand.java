@@ -1,5 +1,13 @@
+package floydai.command;
+import floydai.FloydAIException;
+import floydai.storage.Storage;
+import floydai.task.Task;
+import floydai.ui.UI;
+import floydai.task.TaskList;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class DeleteCommand extends Command {
     private final int index;
@@ -15,7 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws FloydAIException, IOException {
         if (index < 0 || index >= tasks.size()) {
-            throw new FloydAIException("Task number out of range.");
+            throw new FloydAIException("task.Task number out of range.");
         }
         Task removed = tasks.remove(index);
         storage.save(new ArrayList<>(tasks.getAll()));

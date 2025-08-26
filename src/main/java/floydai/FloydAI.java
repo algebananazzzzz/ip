@@ -1,9 +1,17 @@
+package floydai;
+
+import floydai.command.Command;
+import floydai.parser.Parser;
+import floydai.storage.Storage;
+import floydai.task.TaskList;
+import floydai.ui.UI;
+
 import java.io.IOException;
 
 public class FloydAI {
     private Storage storage;
     private TaskList tasks;
-    private UI ui;
+    private final UI ui;
 
     public FloydAI(String filePath) {
         ui = new UI();
@@ -21,13 +29,14 @@ public class FloydAI {
         boolean isExit = false;
 
         while (!isExit) {
+            String fullCommand = ui.readCommand();
             try {
-                String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (FloydAIException | IOException e) {
                 ui.showError(e.getMessage());
+                ui.showLine();
             }
         }
     }

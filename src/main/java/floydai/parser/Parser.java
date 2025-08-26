@@ -1,3 +1,8 @@
+package floydai.parser;
+
+import floydai.FloydAIException;
+import floydai.command.*;
+
 public class Parser {
     public static Command parse(String input) throws FloydAIException {
         if (input.equals("bye")) {

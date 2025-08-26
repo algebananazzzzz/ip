@@ -1,4 +1,12 @@
+package floydai.command;
+import floydai.FloydAIException;
+import floydai.storage.Storage;
+import floydai.task.Task;
+import floydai.ui.UI;
+import floydai.task.TaskList;
+import floydai.task.Deadline;
 import java.util.ArrayList;
+
 
 public class AddDeadlineCommand extends Command {
     private final String input;
@@ -14,7 +22,7 @@ public class AddDeadlineCommand extends Command {
             String desc = parts[0].trim();
             String by = parts[1].trim();
             if (desc.isEmpty() || by.isEmpty()) {
-                throw new FloydAIException("Deadline description or time cannot be empty.");
+                throw new FloydAIException("task.Deadline description or time cannot be empty.");
             }
             Task t = new Deadline(desc, by);
             tasks.add(t);

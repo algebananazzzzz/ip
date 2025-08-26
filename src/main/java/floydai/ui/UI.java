@@ -1,3 +1,7 @@
+package floydai.ui;
+
+import floydai.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -6,7 +10,7 @@ public class UI {
 
     // === High-level interactions ===
     public void showWelcome() {
-        showBox("Hello! I'm FloydAI\nWhat can I do for you?");
+        showBox("Hello! I'm floydai.FloydAI\nWhat can I do for you?");
     }
 
     public void showLoadingError(String message) {

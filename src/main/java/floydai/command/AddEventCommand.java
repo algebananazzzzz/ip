@@ -1,3 +1,10 @@
+package floydai.command;
+import floydai.FloydAIException;
+import floydai.storage.Storage;
+import floydai.task.Task;
+import floydai.ui.UI;
+import floydai.task.TaskList;
+import floydai.task.Event;
 import java.util.ArrayList;
 
 public class AddEventCommand extends Command {
@@ -16,7 +23,7 @@ public class AddEventCommand extends Command {
             String from = timeParts[0].trim();
             String to = timeParts[1].trim();
             if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-                throw new FloydAIException("Event description or time cannot be empty.");
+                throw new FloydAIException("task.Event description or time cannot be empty.");
             }
             Task t = new Event(desc, from, to);
             tasks.add(t);
