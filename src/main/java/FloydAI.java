@@ -87,13 +87,13 @@ public class FloydAI {
 
     private static void handleDeadline(String input) throws FloydAIException {
         if (!input.contains("/by")) {
-            throw new FloydAIException("A deadline must have '/by <time>'.");
+            throw new FloydAIException("A deadline must have '/by <date>' (yyyy-MM-dd).");
         }
         String[] parts = input.split("/by", 2);
         String desc = parts[0].replaceFirst("deadline", "").trim();
         String by = parts[1].trim();
         if (desc.isEmpty() || by.isEmpty()) {
-            throw new FloydAIException("Deadline requires both a description and a '/by' time.");
+            throw new FloydAIException("Deadline requires both a description and a '/by' date.");
         }
         Task t = new Deadline(desc, by);
         tasks.add(t);
@@ -103,7 +103,7 @@ public class FloydAI {
 
     private static void handleEvent(String input) throws FloydAIException {
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new FloydAIException("An event must have '/from <time> /to <time>'.");
+            throw new FloydAIException("An event must have '/from <date> /to <date>' (yyyy-MM-dd).");
         }
         String[] parts1 = input.split("/from", 2);
         String desc = parts1[0].replaceFirst("event", "").trim();
@@ -111,7 +111,7 @@ public class FloydAI {
         String from = parts2[0].trim();
         String to = parts2[1].trim();
         if (desc.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new FloydAIException("Event requires description, '/from', and '/to' times.");
+            throw new FloydAIException("Event requires description, '/from', and '/to' dates.");
         }
         Task t = new Event(desc, from, to);
         tasks.add(t);
