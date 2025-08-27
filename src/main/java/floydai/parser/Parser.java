@@ -19,6 +19,8 @@ public class Parser {
             return new AddDeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new AddEventCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
         } else {
