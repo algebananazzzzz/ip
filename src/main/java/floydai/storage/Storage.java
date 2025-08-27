@@ -1,16 +1,38 @@
 package floydai.storage;
+
 import floydai.FloydAIException;
 import floydai.task.*;
+
 import java.io.*;
 import java.util.*;
 
+/**
+ * Handles loading and saving of tasks to a file on disk.
+ * <p>
+ * Tasks are stored as text lines using the format:
+ * {@code TYPE | DONE | DESCRIPTION [| BY/FROM | TO]} depending on the task type.
+ */
 public class Storage {
+    /** Path to the file used for persisting tasks. */
     private final String filePath;
 
+    /**
+     * Constructs a {@code Storage} object for the given file path.
+     *
+     * @param filePath the path to the storage file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file.
+     * <p>
+     * If the file does not exist, returns an empty task list.
+     *
+     * @return a list of tasks loaded from disk
+     * @throws FloydAIException if reading the file fails or a task cannot be parsed
+     */
     public ArrayList<Task> load() throws FloydAIException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -25,21 +47,11 @@ public class Storage {
                 TaskType type = parseType(parts[0].trim());
 
                 boolean isDone = parts[1].trim().equals("1");
-                Task task;
-
-                switch (type) {
-                    case TODO:
-                        task = new Todo(parts[2].trim());
-                        break;
-                    case DEADLINE:
-                        task = new Deadline(parts[2].trim(), parts[3].trim());
-                        break;
-                    case EVENT:
-                        task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
-                        break;
-                    default:
-                        throw new FloydAIException("Unknown task type: " + type);
-                }
+                Task task = switch (type) {
+                    case TODO -> new Todo(parts[2].trim());
+                    case DEADLINE -> new Deadline(parts[2].trim(), parts[3].trim());
+                    case EVENT -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                };
 
                 if (isDone) {
                     task.markAsDone();
@@ -52,12 +64,20 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given tasks to the file.
+     * <p>
+     * Automatically creates parent directories if they do not exist.
+     *
+     * @param tasks the list of tasks to save
+     * @throws FloydAIException if writing to the file fails
+     */
     public void save(ArrayList<Task> tasks) throws FloydAIException {
         try {
             File file = new File(filePath);
             File parent = file.getParentFile();
             if (parent != null && !parent.exists()) {
-                parent.mkdirs(); // ✅ create ./data/ if it doesn’t exist
+                parent.mkdirs();
             }
 
             try (FileWriter fw = new FileWriter(file)) {
@@ -70,7 +90,12 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Converts a task to a line string suitable for saving in the file.
+     *
+     * @param task the task to serialize
+     * @return the serialized string representation
+     */
     private String serializeTask(Task task) {
         StringBuilder sb = new StringBuilder();
         TaskType type = task.getType();
@@ -87,6 +112,13 @@ public class Storage {
         return sb.toString();
     }
 
+    /**
+     * Converts an icon string to its corresponding {@link TaskType}.
+     *
+     * @param icon the icon representing a task type
+     * @return the {@link TaskType} corresponding to the icon
+     * @throws FloydAIException if the icon does not match any known task type
+     */
     private TaskType parseType(String icon) throws FloydAIException {
         for (TaskType t : TaskType.values()) {
             if (t.getIcon().equals(icon)) {

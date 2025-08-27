@@ -6,12 +6,28 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task with a specific due date.
+ * <p>
+ * Inherits from {@link Task} and adds a {@code by} date stored as {@link LocalDate}.
+ */
 public class Deadline extends Task {
-    private LocalDate by; // store as LocalDate
+    /** Due date of the deadline task. */
+    private final LocalDate by;
 
+    /** Formatter for parsing input dates (yyyy-MM-dd). */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    /** Formatter for displaying the due date in a user-friendly format (MMM d yyyy). */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
 
+    /**
+     * Constructs a {@code Deadline} task with a description and due date.
+     *
+     * @param description Description of the deadline task.
+     * @param by Due date as a string in yyyy-MM-dd format.
+     * @throws FloydAIException If the date string is not in the expected format.
+     */
     public Deadline(String description, String by) throws FloydAIException {
         super(description, TaskType.DEADLINE);
         try {
@@ -21,8 +37,21 @@ public class Deadline extends Task {
         }
     }
 
-    public LocalDate getBy() { return by; }
+    /**
+     * Returns the due date of this deadline.
+     *
+     * @return {@link LocalDate} representing the due date.
+     */
+    public LocalDate getBy() {
+        return by;
+    }
 
+    /**
+     * Returns a string representation of the deadline task.
+     * Includes the task type, status, description, and formatted due date.
+     *
+     * @return A string representing this deadline task.
+     */
     @Override
     public String toString() {
         return super.toString() + " (by: " + by.format(OUTPUT_FORMAT) + ")";

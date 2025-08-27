@@ -10,13 +10,31 @@ import floydai.task.Todo;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Command to add a new Todo task to the task list.
+ */
 public class AddTodoCommand extends Command {
     private final String input;
 
+    /**
+     * Constructs an AddTodoCommand with the raw user input.
+     *
+     * @param input the full user input starting with "todo"
+     */
     public AddTodoCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Executes the command by creating a Todo task, adding it to the task list,
+     * saving the updated list to storage, and showing the added task to the user.
+     *
+     * @param tasks   the TaskList to add the Todo to
+     * @param ui      the UI for interacting with the user
+     * @param storage the Storage for persisting tasks
+     * @throws FloydAIException if the description is empty
+     * @throws IOException      if saving the task list fails
+     */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws FloydAIException, IOException {
         String desc = input.substring(4).trim();
