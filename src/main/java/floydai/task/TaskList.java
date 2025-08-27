@@ -97,4 +97,21 @@ public class TaskList {
     public void unmark(int index) {
         tasks.get(index).markAsNotDone();
     }
+
+    /**
+     * Finds tasks that contain the given keyword in their description.
+     * The search is case-insensitive.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of tasks whose descriptions contain the keyword.
+     */
+    public ArrayList<Task> findTasks(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t : tasks) {
+            if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
 }
