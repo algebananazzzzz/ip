@@ -9,7 +9,7 @@ import floydai.ui.UI;
 import java.io.IOException;
 
 public class FloydAI {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
     private final UI ui;
 
