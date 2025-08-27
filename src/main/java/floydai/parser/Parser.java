@@ -3,7 +3,19 @@ package floydai.parser;
 import floydai.FloydAIException;
 import floydai.command.*;
 
+/**
+ * Parser class responsible for interpreting user input
+ * and converting it into a corresponding {@link Command}.
+ */
 public class Parser {
+
+    /**
+     * Parses a user input string and returns the corresponding {@link Command}.
+     *
+     * @param input the raw user input
+     * @return a Command object representing the requested action
+     * @throws FloydAIException if the input does not match any known command
+     */
     public static Command parse(String input) throws FloydAIException {
         if (input.equals("bye")) {
             return new ExitCommand();

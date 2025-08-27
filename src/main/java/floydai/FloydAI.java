@@ -8,11 +8,22 @@ import floydai.ui.UI;
 
 import java.io.IOException;
 
+/**
+ * Main class for the FloydAI chatbot application.
+ * Responsible for initializing the application, handling user input,
+ * and executing commands in a loop until exit.
+ */
 public class FloydAI {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
     private final UI ui;
 
+    /**
+     * Constructs a FloydAI instance with the given file path for storage.
+     * Loads tasks from storage or starts with an empty task list if loading fails.
+     *
+     * @param filePath path to the save file
+     */
     public FloydAI(String filePath) {
         ui = new UI();
         storage = new Storage(filePath);
@@ -24,6 +35,10 @@ public class FloydAI {
         }
     }
 
+    /**
+     * Runs the main loop of the chatbot, reading user commands and executing them.
+     * Continues until an exit command is received.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,6 +56,11 @@ public class FloydAI {
         }
     }
 
+    /**
+     * Entry point of the application.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         new FloydAI("./data/FLOYDAI.txt").run();
     }
