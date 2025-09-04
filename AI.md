@@ -46,6 +46,9 @@ This file documents my use of AI tools in developing the floydai.FloydAI project
 - AI provided the skeleton for delete handling, confirming removal and updating task count.
 - Learned to integrate deletion with list numbering and CLI output.
 
+### UI and GFMD
+- Used ChatGPT to customize UI class with the theme of paying tribute to George Floyd and systemic racial injustice.
+
 ---
 
 ## Observations
@@ -61,6 +64,7 @@ This file documents my use of AI tools in developing the floydai.FloydAI project
 - Debugging index errors when marking/deleting tasks.
 - Matching exact output format for tests (e.g., pluralization `"task(s)"`, brackets `[T]`, `[D]`, `[E]`).
 - Understanding AI suggestions before integrating them into my project.
+- Some tonality and output from ChatGPT is particularly insensitive to the suffering of George Floyd e.g. over mentioning the lack of ability to breathe. I had to manually vet through and remove overly charged sections to ensure it remains politically neutral and accepted by everyone.
 
 **Overall impact:**
 

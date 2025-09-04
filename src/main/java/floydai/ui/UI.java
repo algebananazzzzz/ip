@@ -21,7 +21,12 @@ public class UI {
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
-        showBox("Hello! I'm floydai.FloydAI\nWhat can I do for you?");
+        showBox("""
+                ✊🏽 Hello, I'm FloydAI.
+                I was created in memory of George Floyd —
+                a reminder to breathe, to live, and to never forget.
+                
+                What would you like me to remember for you?""");
     }
 
     /**
@@ -31,7 +36,8 @@ public class UI {
      * @param message The reason why loading tasks failed.
      */
     public void showLoadingError(String message) {
-        showBox("Error loading tasks! Starting with an empty list.\nReason: " + message);
+        showBox("⚠️ Trouble breathing while loading tasks...\n" +
+                "Starting with a fresh list of dreams.\n\nReason: " + message);
     }
 
     /**
@@ -58,7 +64,7 @@ public class UI {
      * @param message The error message to display.
      */
     public void showError(String message) {
-        showBox("Error: " + message);
+        showBox("💔 Error: " + message + "\nTake a deep breath and try again.");
     }
 
     /**
@@ -77,8 +83,8 @@ public class UI {
      * @param count The total number of tasks currently in the list.
      */
     public void showAddTask(Task t, int count) {
-        showBox("Got it. I've added this task:\n  " + t
-                + "\nNow you have " + count + " tasks in the list.");
+        showBox("✨ A new breath, a new memory saved:\n  " + t
+                + "\nNow you have " + count + " task(s) in your list of dreams.");
     }
 
     /**
@@ -89,7 +95,7 @@ public class UI {
      */
     public void showTasks(List<Task> tasks) {
         if (tasks == null || tasks.isEmpty()) {
-            showBox("Your task list is empty! Add something first.");
+            showBox("🌫️ Your list is empty... nothing to breathe into yet.");
             return;
         }
         StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
@@ -107,8 +113,8 @@ public class UI {
      * @param msg The message to display inside the box.
      */
     private void showBox(String msg) {
-        System.out.println("____________________________________________________________");
+        showLine();
         System.out.println(" " + msg.replace("\n", "\n "));
-        System.out.println("____________________________________________________________");
+        showLine();
     }
 }
