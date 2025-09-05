@@ -1,12 +1,12 @@
 package floydai;
 
+import java.io.IOException;
+
 import floydai.command.Command;
 import floydai.parser.Parser;
 import floydai.storage.Storage;
 import floydai.task.TaskList;
 import floydai.ui.UI;
-
-import java.io.IOException;
 
 /**
  * Main class for the FloydAI chatbot application.
@@ -49,7 +49,7 @@ public class FloydAI {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (FloydAIException | IOException e) {
+            } catch (FloydException | IOException e) {
                 ui.showError(e.getMessage());
                 ui.showLine();
             }

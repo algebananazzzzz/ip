@@ -1,22 +1,26 @@
-import floydai.FloydAIException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import floydai.FloydException;
 import floydai.command.AddTodoCommand;
 import floydai.command.Command;
 import floydai.command.MarkCommand;
 import floydai.parser.Parser;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 
     @Test
-    void testParseTodoCommand() throws FloydAIException {
+    void testParseTodoCommand() throws FloydException {
         Command cmd = Parser.parse("todo read book");
-        assertTrue(cmd instanceof AddTodoCommand);
+        assertInstanceOf(AddTodoCommand.class, cmd);
     }
 
     @Test
     void testParseInvalidCommandThrows() {
-        Exception exception = assertThrows(FloydAIException.class, () -> {
+        Exception exception = assertThrows(FloydException.class, () -> {
             Parser.parse("foobar");
         });
 
@@ -25,8 +29,8 @@ class ParserTest {
     }
 
     @Test
-    void testParseMarkCommand() throws FloydAIException {
+    void testParseMarkCommand() throws FloydException {
         Command cmd = Parser.parse("mark 2");
-        assertTrue(cmd instanceof MarkCommand);
+        assertInstanceOf(MarkCommand.class, cmd);
     }
 }

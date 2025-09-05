@@ -1,9 +1,9 @@
 package floydai.ui;
 
-import floydai.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import floydai.task.Task;
 
 /**
  * Handles all interactions with the user, including displaying messages,
@@ -25,7 +25,7 @@ public class UI {
                 ✊🏽 Hello, I'm FloydAI.
                 I was created in memory of George Floyd —
                 a reminder to breathe, to live, and to never forget.
-                
+
                 What would you like me to remember for you?""");
     }
 
@@ -36,8 +36,8 @@ public class UI {
      * @param message The reason why loading tasks failed.
      */
     public void showLoadingError(String message) {
-        showBox("⚠️ Trouble breathing while loading tasks...\n" +
-                "Starting with a fresh list of dreams.\n\nReason: " + message);
+        showBox("⚠️ Trouble breathing while loading tasks...\n"
+                + "Starting with a fresh list of dreams.\n\nReason: " + message);
     }
 
     /**

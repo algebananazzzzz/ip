@@ -1,12 +1,12 @@
 package floydai.command;
 
-import floydai.FloydAIException;
-import floydai.storage.Storage;
-import floydai.ui.UI;
-import floydai.task.TaskList;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import floydai.FloydException;
+import floydai.storage.Storage;
+import floydai.task.TaskList;
+import floydai.ui.UI;
 
 /**
  * Command to mark a task as done in the TaskList.
@@ -18,13 +18,13 @@ public class MarkCommand extends Command {
      * Constructs a MarkCommand from user input.
      *
      * @param input user input string, e.g., "mark 2"
-     * @throws FloydAIException if the input is invalid or cannot parse task number
+     * @throws FloydException if the input is invalid or cannot parse task number
      */
-    public MarkCommand(String input) throws FloydAIException {
+    public MarkCommand(String input) throws FloydException {
         try {
             this.index = Integer.parseInt(input.split(" ")[1]) - 1;
         } catch (Exception e) {
-            throw new FloydAIException("Please provide a valid task number to mark.");
+            throw new FloydException("Please provide a valid task number to mark.");
         }
     }
 
@@ -34,13 +34,13 @@ public class MarkCommand extends Command {
      * @param tasks   the TaskList containing tasks
      * @param ui      the UI to display feedback
      * @param storage the Storage to save changes
-     * @throws FloydAIException if task index is out of range
+     * @throws FloydException if task index is out of range
      * @throws IOException      if saving to storage fails
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws FloydAIException, IOException {
+    public void execute(TaskList tasks, UI ui, Storage storage) throws FloydException, IOException {
         if (index < 0 || index >= tasks.size()) {
-            throw new FloydAIException("Task number out of range.");
+            throw new FloydException("Task number out of range.");
         }
         tasks.mark(index);
         storage.save(new ArrayList<>(tasks.getAll()));

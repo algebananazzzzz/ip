@@ -1,10 +1,10 @@
 package floydai.command;
 
-import floydai.storage.Storage;
-import floydai.ui.UI;
-import floydai.task.TaskList;
-
 import java.io.IOException;
+
+import floydai.storage.Storage;
+import floydai.task.TaskList;
+import floydai.ui.UI;
 
 /**
  * Command to list all tasks in the task list.

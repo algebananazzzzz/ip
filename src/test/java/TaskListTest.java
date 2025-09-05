@@ -1,15 +1,18 @@
-import floydai.FloydAIException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.Test;
+
+import floydai.FloydException;
 import floydai.task.Deadline;
 import floydai.task.Task;
 import floydai.task.TaskList;
 import floydai.task.Todo;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TaskListTest {
 
     @Test
-    void testAddAndGetTask() throws FloydAIException {
+    void testAddAndGetTask() throws FloydException {
         TaskList tasks = new TaskList();
         Task t1 = new Todo("read book");
         tasks.add(t1);
@@ -20,7 +23,7 @@ class TaskListTest {
     }
 
     @Test
-    void testDeleteTask() throws FloydAIException {
+    void testDeleteTask() throws FloydException {
         TaskList tasks = new TaskList();
         Task t1 = new Todo("read book");
         Task t2 = new Deadline("return book", "2025-08-26");

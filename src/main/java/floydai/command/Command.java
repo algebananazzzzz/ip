@@ -1,11 +1,11 @@
 package floydai.command;
 
-import floydai.FloydAIException;
+import java.io.IOException;
+
+import floydai.FloydException;
 import floydai.storage.Storage;
 import floydai.task.TaskList;
 import floydai.ui.UI;
-
-import java.io.IOException;
 
 /**
  * Represents a command that can be executed by FloydAI.
@@ -20,10 +20,10 @@ public abstract class Command {
      * @param tasks   the TaskList to operate on
      * @param ui      the UI for interacting with the user
      * @param storage the Storage for persisting data
-     * @throws FloydAIException if an error occurs during command execution
+     * @throws FloydException if an error occurs during command execution
      * @throws IOException      if an I/O error occurs when interacting with the storage
      */
-    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws FloydAIException, IOException;
+    public abstract void execute(TaskList tasks, UI ui, Storage storage) throws FloydException, IOException;
 
     /**
      * Indicates whether this command is an exit command.

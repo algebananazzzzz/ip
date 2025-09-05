@@ -5,14 +5,14 @@ package floydai;
  * Used to indicate errors in user commands, input parsing, or other
  * application-specific failures.
  */
-public class FloydAIException extends Exception {
+public class FloydException extends Exception {
 
     /**
      * Constructs a new FloydAIException with the specified detail message.
      *
      * @param message the detail message explaining the reason for the exception
      */
-    public FloydAIException(String message) {
+    public FloydException(String message) {
         super(message);
     }
 }
