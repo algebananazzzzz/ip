@@ -1,10 +1,11 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 import floydai.command.AddTodoCommand;
 import floydai.storage.Storage;
 import floydai.task.TaskList;
 import floydai.ui.UI;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AddTodoCommandTest {
 

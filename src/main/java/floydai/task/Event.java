@@ -1,9 +1,10 @@
 package floydai.task;
 
-import floydai.FloydAIException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import floydai.FloydException;
 
 /**
  * Represents an event task with a start date and an end date.
@@ -12,14 +13,14 @@ import java.time.format.DateTimeParseException;
  * Dates are stored as {@link LocalDate} objects and formatted for display.
  */
 public class Event extends Task {
-    private final LocalDate from;
-    private final LocalDate to;
-
     /** Formatter for parsing input dates (yyyy-MM-dd). */
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /** Formatter for displaying dates in a user-friendly format (MMM d yyyy). */
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Constructs an {@code Event} with a description, start date, and end date.
@@ -27,15 +28,15 @@ public class Event extends Task {
      * @param description Description of the event.
      * @param fromStr Start date as a string in yyyy-MM-dd format.
      * @param toStr End date as a string in yyyy-MM-dd format.
-     * @throws FloydAIException If the date strings are not in the expected format.
+     * @throws FloydException If the date strings are not in the expected format.
      */
-    public Event(String description, String fromStr, String toStr) throws FloydAIException {
+    public Event(String description, String fromStr, String toStr) throws FloydException {
         super(description, TaskType.EVENT);
         try {
             this.from = LocalDate.parse(fromStr, INPUT_FORMAT);
             this.to = LocalDate.parse(toStr, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new FloydAIException("Invalid date format! Use yyyy-MM-dd (e.g., 2019-12-02).");
+            throw new FloydException("Invalid date format! Use yyyy-MM-dd (e.g., 2019-12-02).");
         }
     }
 

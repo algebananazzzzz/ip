@@ -1,12 +1,14 @@
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import floydai.storage.Storage;
 import floydai.task.Task;
 import floydai.task.Todo;
-import org.junit.jupiter.api.Test;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
 
 class StorageTest {
 

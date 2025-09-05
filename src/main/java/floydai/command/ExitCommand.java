@@ -1,8 +1,8 @@
 package floydai.command;
 
 import floydai.storage.Storage;
-import floydai.ui.UI;
 import floydai.task.TaskList;
+import floydai.ui.UI;
 
 /**
  * Command to exit the application.

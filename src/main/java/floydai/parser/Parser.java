@@ -1,7 +1,16 @@
 package floydai.parser;
 
-import floydai.FloydAIException;
-import floydai.command.*;
+import floydai.FloydException;
+import floydai.command.AddDeadlineCommand;
+import floydai.command.AddEventCommand;
+import floydai.command.AddTodoCommand;
+import floydai.command.Command;
+import floydai.command.DeleteCommand;
+import floydai.command.ExitCommand;
+import floydai.command.FindCommand;
+import floydai.command.ListCommand;
+import floydai.command.MarkCommand;
+import floydai.command.UnmarkCommand;
 
 /**
  * Parser class responsible for interpreting user input
@@ -14,9 +23,9 @@ public class Parser {
      *
      * @param input the raw user input
      * @return a Command object representing the requested action
-     * @throws FloydAIException if the input does not match any known command
+     * @throws FloydException if the input does not match any known command
      */
-    public static Command parse(String input) throws FloydAIException {
+    public static Command parse(String input) throws FloydException {
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
@@ -36,7 +45,7 @@ public class Parser {
         } else if (input.startsWith("delete")) {
             return new DeleteCommand(input);
         } else {
-            throw new FloydAIException("I don’t understand that command.");
+            throw new FloydException("I don’t understand that command.");
         }
     }
 }

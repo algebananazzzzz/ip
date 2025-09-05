@@ -1,10 +1,18 @@
 package floydai.storage;
 
-import floydai.FloydAIException;
-import floydai.task.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-import java.io.*;
-import java.util.*;
+import floydai.FloydException;
+import floydai.task.Deadline;
+import floydai.task.Event;
+import floydai.task.Task;
+import floydai.task.TaskType;
+import floydai.task.Todo;
+
 
 /**
  * Handles loading and saving of tasks to a file on disk.
@@ -31,9 +39,9 @@ public class Storage {
      * If the file does not exist, returns an empty task list.
      *
      * @return a list of tasks loaded from disk
-     * @throws FloydAIException if reading the file fails or a task cannot be parsed
+     * @throws FloydException if reading the file fails or a task cannot be parsed
      */
-    public ArrayList<Task> load() throws FloydAIException {
+    public ArrayList<Task> load() throws FloydException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
@@ -48,9 +56,9 @@ public class Storage {
 
                 boolean isDone = parts[1].trim().equals("1");
                 Task task = switch (type) {
-                    case TODO -> new Todo(parts[2].trim());
-                    case DEADLINE -> new Deadline(parts[2].trim(), parts[3].trim());
-                    case EVENT -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                case TODO -> new Todo(parts[2].trim());
+                case DEADLINE -> new Deadline(parts[2].trim(), parts[3].trim());
+                case EVENT -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
                 };
 
                 if (isDone) {
@@ -59,7 +67,7 @@ public class Storage {
                 tasks.add(task);
             }
         } catch (IOException e) {
-            throw new FloydAIException("Error loading file: " + e.getMessage());
+            throw new FloydException("Error loading file: " + e.getMessage());
         }
         return tasks;
     }
@@ -70,9 +78,9 @@ public class Storage {
      * Automatically creates parent directories if they do not exist.
      *
      * @param tasks the list of tasks to save
-     * @throws FloydAIException if writing to the file fails
+     * @throws FloydException if writing to the file fails
      */
-    public void save(ArrayList<Task> tasks) throws FloydAIException {
+    public void save(ArrayList<Task> tasks) throws FloydException {
         try {
             File file = new File(filePath);
             File parent = file.getParentFile();
@@ -86,7 +94,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new FloydAIException("Error saving file: " + e.getMessage());
+            throw new FloydException("Error saving file: " + e.getMessage());
         }
     }
 
@@ -117,14 +125,14 @@ public class Storage {
      *
      * @param icon the icon representing a task type
      * @return the {@link TaskType} corresponding to the icon
-     * @throws FloydAIException if the icon does not match any known task type
+     * @throws FloydException if the icon does not match any known task type
      */
-    private TaskType parseType(String icon) throws FloydAIException {
+    private TaskType parseType(String icon) throws FloydException {
         for (TaskType t : TaskType.values()) {
             if (t.getIcon().equals(icon)) {
                 return t;
             }
         }
-        throw new FloydAIException("Unknown task type: " + icon);
+        throw new FloydException("Unknown task type: " + icon);
     }
 }

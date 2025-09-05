@@ -1,14 +1,14 @@
 package floydai.command;
 
-import floydai.FloydAIException;
-import floydai.storage.Storage;
-import floydai.task.Task;
-import floydai.ui.UI;
-import floydai.task.TaskList;
-import floydai.task.Todo;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import floydai.FloydException;
+import floydai.storage.Storage;
+import floydai.task.Task;
+import floydai.task.TaskList;
+import floydai.task.Todo;
+import floydai.ui.UI;
 
 /**
  * Command to add a new Todo task to the task list.
@@ -32,14 +32,14 @@ public class AddTodoCommand extends Command {
      * @param tasks   the TaskList to add the Todo to
      * @param ui      the UI for interacting with the user
      * @param storage the Storage for persisting tasks
-     * @throws FloydAIException if the description is empty
+     * @throws FloydException if the description is empty
      * @throws IOException      if saving the task list fails
      */
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws FloydAIException, IOException {
+    public void execute(TaskList tasks, UI ui, Storage storage) throws FloydException, IOException {
         String desc = input.substring(4).trim();
         if (desc.isEmpty()) {
-            throw new FloydAIException("The description of a todo cannot be empty.");
+            throw new FloydException("The description of a todo cannot be empty.");
         }
         Task t = new Todo(desc);
         tasks.add(t);
