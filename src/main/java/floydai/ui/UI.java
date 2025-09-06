@@ -14,19 +14,21 @@ import floydai.task.Task;
  */
 public class UI {
     private final Scanner scanner = new Scanner(System.in);
+    private MainWindow mainWindow;
 
-    // === High-level interactions ===
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
 
     /**
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
         showBox("""
-                ✊🏽 Hello, I'm FloydAI.
-                I was created in memory of George Floyd —
-                a reminder to breathe, to live, and to never forget.
+✊🏽 Hello, I'm FloydAI.
+I was created in loving memory of George Floyd — a reminder to breathe, to live, and to never forget.
 
-                What would you like me to remember for you?""");
+What would you like me to remember for you?""");
     }
 
     /**
@@ -113,8 +115,12 @@ public class UI {
      * @param msg The message to display inside the box.
      */
     private void showBox(String msg) {
-        showLine();
-        System.out.println(" " + msg.replace("\n", "\n "));
-        showLine();
+        if (mainWindow != null) {
+            mainWindow.addFloydDialog(msg);
+        } else {
+            showLine();
+            System.out.println(" " + msg.replace("\n", "\n "));
+            showLine();
+        }
     }
 }

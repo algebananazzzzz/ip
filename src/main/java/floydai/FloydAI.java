@@ -6,6 +6,7 @@ import floydai.command.Command;
 import floydai.parser.Parser;
 import floydai.storage.Storage;
 import floydai.task.TaskList;
+import floydai.ui.MainWindow;
 import floydai.ui.UI;
 
 /**
@@ -36,6 +37,28 @@ public class FloydAI {
     }
 
     /**
+     * Injects the {@link MainWindow} instance into the UI,
+     * allowing it to render messages in the JavaFX interface
+     * instead of (or in addition to) the console.
+     *
+     * @param window The {@code MainWindow} controller to connect with the UI.
+     */
+    public void setMainWindow(MainWindow window) {
+        this.ui.setMainWindow(window);
+    }
+
+    /**
+     * Displays the initial welcome message to the user.
+     * <p>
+     * Delegates to {@link UI#showWelcome()}, which adapts
+     * output to either console or JavaFX depending on the setup.
+     * </p>
+     */
+    public void showWelcomeMessage() {
+        this.ui.showWelcome();
+    }
+
+    /**
      * Runs the main loop of the chatbot, reading user commands and executing them.
      * Continues until an exit command is received.
      */
@@ -54,6 +77,25 @@ public class FloydAI {
                 ui.showLine();
             }
         }
+    }
+
+    /**
+     * Processes a single line of user input by parsing and executing it.
+     * <p>
+     * - Parses the raw input string into a {@link Command}. <br>
+     * - Executes the command with access to the current task list,
+     *   the {@link UI} for user interaction, and the {@link Storage}
+     *   for persistence. <br>
+     * - Commands may modify tasks, display messages, or trigger storage updates.
+     * </p>
+     *
+     * @param input The raw user input string to process.
+     * @throws FloydException If the input cannot be parsed or the command fails.
+     * @throws IOException    If an error occurs while saving or loading data.
+     */
+    public void handleInput(String input) throws FloydException, IOException {
+        Command c = Parser.parse(input);
+        c.execute(tasks, ui, storage);
     }
 
     /**
