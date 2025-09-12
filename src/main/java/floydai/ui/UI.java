@@ -2,6 +2,8 @@ package floydai.ui;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import floydai.task.Task;
 
@@ -100,11 +102,12 @@ What would you like me to remember for you?""");
             showBox("🌫️ Your list is empty... nothing to breathe into yet.");
             return;
         }
-        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
-        }
-        showBox(sb.toString().trim());
+
+        String taskList = IntStream.range(0, tasks.size())
+                .mapToObj(i -> " " + (i + 1) + "." + tasks.get(i))
+                .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
+
+        showBox(taskList);
     }
 
     // === Low-level box renderer ===
