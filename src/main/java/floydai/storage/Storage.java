@@ -34,42 +34,65 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the file.
-     * <p>
-     * If the file does not exist, returns an empty task list.
+     * Loads tasks from the save file.
      *
-     * @return a list of tasks loaded from disk
-     * @throws FloydException if reading the file fails or a task cannot be parsed
+     * @return a list of tasks reconstructed from the save file
+     * @throws FloydException if an error occurs while reading the file
      */
     public ArrayList<Task> load() throws FloydException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+
         if (!file.exists()) {
             return tasks; // return empty if no save file
         }
 
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                String[] parts = line.split(" \\| ");
-                TaskType type = parseType(parts[0].trim());
-
-                boolean isDone = parts[1].trim().equals("1");
-                Task task = switch (type) {
-                case TODO -> new Todo(parts[2].trim());
-                case DEADLINE -> new Deadline(parts[2].trim(), parts[3].trim());
-                case EVENT -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
-                };
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-                tasks.add(task);
+                tasks.add(parseTaskLine(sc.nextLine()));
             }
         } catch (IOException e) {
             throw new FloydException("Error loading file: " + e.getMessage());
         }
+
         return tasks;
+    }
+
+    /**
+     * Parses a single line from the save file into a Task object.
+     *
+     * @param line a line representing a task, split by " | "
+     * @return the parsed Task object
+     * @throws FloydException if the task type cannot be parsed
+     */
+    private Task parseTaskLine(String line) throws FloydException {
+        String[] parts = line.split(" \\| ");
+        TaskType type = parseType(parts[0].trim());
+
+        boolean isDone = parts[1].trim().equals("1");
+        Task task = createTask(type, parts);
+
+        if (isDone) {
+            task.markAsDone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Creates a Task object based on its type and line parts.
+     *
+     * @param type  the TaskType of the task
+     * @param parts the parts of the line split by " | "
+     * @return a Task instance of the correct subtype
+     * @throws FloydException if the task type is not recognized
+     */
+    private Task createTask(TaskType type, String[] parts) throws FloydException {
+        return switch (type) {
+            case TODO -> new Todo(parts[2].trim());
+            case DEADLINE -> new Deadline(parts[2].trim(), parts[3].trim());
+            case EVENT -> new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+        };
     }
 
     /**
