@@ -26,13 +26,17 @@ public class Parser {
      * @throws FloydException if the input does not match any known command
      */
     public static Command parse(String input) throws FloydException {
+        assert input != null : "Input to parse() should never be null";
+
         if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark ")) {
+            assert input.length() > "mark ".length() : "Missing argument for mark command";
             return new MarkCommand(input);
         } else if (input.startsWith("unmark ")) {
+            assert input.length() > "unmark ".length() : "Missing argument for unmark command";
             return new UnmarkCommand(input);
         } else if (input.startsWith("todo")) {
             return new AddTodoCommand(input);
@@ -40,9 +44,11 @@ public class Parser {
             return new AddDeadlineCommand(input);
         } else if (input.startsWith("event")) {
             return new AddEventCommand(input);
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("find ")) {
+            assert input.length() > "find ".length() : "Missing argument for find command";
             return new FindCommand(input);
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete ")) {
+            assert input.length() > "delete ".length() : "Missing argument for delete command";
             return new DeleteCommand(input);
         } else {
             throw new FloydException("I don’t understand that command.");
