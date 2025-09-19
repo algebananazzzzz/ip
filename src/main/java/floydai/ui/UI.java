@@ -26,11 +26,7 @@ public class UI {
      * Displays a welcome message when the application starts.
      */
     public void showWelcome() {
-        showBox("""
-✊🏽 Hello, I'm FloydAI.
-I was created in loving memory of George Floyd — a reminder to breathe, to live, and to never forget.
-
-What would you like me to remember for him?""");
+        showBox("Hello, I'm FloydAI. I was created in loving memory of George Floyd — a reminder to breathe, to live, and to never forget. What would you like me to remember for him?");
     }
 
     /**
@@ -40,7 +36,7 @@ What would you like me to remember for him?""");
      * @param message The reason why loading tasks failed.
      */
     public void showLoadingError(String message) {
-        showBox("⚠️ Trouble breathing while loading tasks...\n"
+        showBox("Trouble breathing while loading tasks...\n"
                 + "Starting with a fresh list of dreams.\n\nReason: " + message);
     }
 
@@ -87,8 +83,8 @@ What would you like me to remember for him?""");
      * @param count The total number of tasks currently in the list.
      */
     public void showAddTask(Task t, int count) {
-        showBox("✨ A new breath, a new memory saved:\n  " + t
-                + "\nNow he has " + count + " task(s) in your list of dreams.");
+        showBox("A new breath, a new memory saved:\n  " + t
+                + "\nNow he has " + count + " task(s) in his list of dreams.");
     }
 
     /**
@@ -99,7 +95,7 @@ What would you like me to remember for him?""");
      */
     public void showTasks(List<Task> tasks) {
         if (tasks == null || tasks.isEmpty()) {
-            showBox("🌫️ His list is empty... nothing to breathe into yet.");
+            showBox("His list is empty... nothing to breathe 🌫 into yet.");
             return;
         }
 
