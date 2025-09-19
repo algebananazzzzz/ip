@@ -1,4 +1,4 @@
-# floydai.FloydAI User Guide
+# FloydAI User Guide
 
 // Update the title above to match the actual product name
 
