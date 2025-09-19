@@ -35,6 +35,10 @@ public class Event extends Task {
         try {
             this.from = LocalDate.parse(fromStr, INPUT_FORMAT);
             this.to = LocalDate.parse(toStr, INPUT_FORMAT);
+
+            if (this.to.isBefore(this.from)) {
+                throw new FloydException("End date cannot be earlier than start date.");
+            }
         } catch (DateTimeParseException e) {
             throw new FloydException("Invalid date format! Use yyyy-MM-dd (e.g., 2019-12-02).");
         }

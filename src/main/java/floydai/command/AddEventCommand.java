@@ -49,6 +49,8 @@ public class AddEventCommand extends Command {
             tasks.add(t);
             storage.save(new ArrayList<>(tasks.getAll()));
             ui.showAddTask(t, tasks.size());
+        } catch (FloydException e) {
+            throw e;
         } catch (Exception e) {
             throw new FloydException("Usage: event <description> /from <time> /to <time>");
         }

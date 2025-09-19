@@ -47,6 +47,8 @@ public class AddDeadlineCommand extends Command {
             tasks.add(t);
             storage.save(new ArrayList<>(tasks.getAll()));
             ui.showAddTask(t, tasks.size());
+        } catch (FloydException e) {
+            throw e;
         } catch (Exception e) {
             throw new FloydException("Usage: deadline <description> /by <time>");
         }
