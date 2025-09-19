@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The {@code Main} class serves as the entry point for the Duke application.
+ * The {@code Main} class serves as the entry point for the FloydAI application.
  * <p>
  * It sets up the primary stage, loads the main window layout from FXML,
  * and injects the {@link FloydAI} instance into the {@link FloydAI} controller.
@@ -19,13 +19,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     /**
-     * The core Duke instance used by the application.
+     * The core FloydAI instance used by the application.
      */
     private final FloydAI floyd = new FloydAI("./data/FLOYDAI.txt");
 
     /**
      * Starts the JavaFX application by loading the main window layout and
-     * initializing the controller with the Duke instance.
+     * initializing the controller with the FloydAI instance.
      *
      * @param stage the primary stage provided by the JavaFX runtime
      */
