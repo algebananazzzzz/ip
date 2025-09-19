@@ -44,6 +44,6 @@ public class MarkCommand extends Command {
         }
         tasks.mark(index);
         storage.save(new ArrayList<>(tasks.getAll()));
-        ui.showMessage("Nice! I've marked this task as done:\n  " + tasks.get(index));
+        ui.showMessage("Nice! Thank you for completing this task for George Floyd:\n  " + tasks.get(index));
     }
 }

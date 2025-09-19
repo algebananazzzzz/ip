@@ -30,7 +30,7 @@ public class UI {
 ✊🏽 Hello, I'm FloydAI.
 I was created in loving memory of George Floyd — a reminder to breathe, to live, and to never forget.
 
-What would you like me to remember for you?""");
+What would you like me to remember for him?""");
     }
 
     /**
@@ -88,7 +88,7 @@ What would you like me to remember for you?""");
      */
     public void showAddTask(Task t, int count) {
         showBox("✨ A new breath, a new memory saved:\n  " + t
-                + "\nNow you have " + count + " task(s) in your list of dreams.");
+                + "\nNow he has " + count + " task(s) in your list of dreams.");
     }
 
     /**
@@ -99,13 +99,13 @@ What would you like me to remember for you?""");
      */
     public void showTasks(List<Task> tasks) {
         if (tasks == null || tasks.isEmpty()) {
-            showBox("🌫️ Your list is empty... nothing to breathe into yet.");
+            showBox("🌫️ His list is empty... nothing to breathe into yet.");
             return;
         }
 
         String taskList = IntStream.range(0, tasks.size())
                 .mapToObj(i -> " " + (i + 1) + "." + tasks.get(i))
-                .collect(Collectors.joining("\n", "Here are the tasks in your list:\n", ""));
+                .collect(Collectors.joining("\n", "Here are the dreams and aspirations of George Floyd:\n", ""));
 
         showBox(taskList);
     }

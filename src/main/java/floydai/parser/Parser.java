@@ -51,7 +51,7 @@ public class Parser {
             assert input.length() > "delete ".length() : "Missing argument for delete command";
             return new DeleteCommand(input);
         } else {
-            throw new FloydException("I don’t understand that command.");
+            throw new FloydException("I don’t understand that command. Let us remember the Black lives lost, and continue to move forward with justice and dignity.");
         }
     }
 }
