@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Represents a dialog box in the UI, consisting of a {@link Label} for text
@@ -47,6 +48,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setTextAlignment(TextAlignment.JUSTIFY);
         displayPicture.setImage(img);
         displayPicture.setFitWidth(64);
         displayPicture.setFitHeight(64);
