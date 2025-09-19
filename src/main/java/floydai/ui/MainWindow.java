@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import floydai.FloydAI;
 import floydai.FloydException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
