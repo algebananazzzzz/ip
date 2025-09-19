@@ -84,7 +84,7 @@ public class MainWindow extends AnchorPane {
             floyd.handleInput(input);
         } catch (FloydException | IOException e) {
             dialogContainer.getChildren().addAll(
-                DialogBox.getFloydDialog(e.getMessage(), floydImage)
+                DialogBox.getErrorDialog(e.getMessage(), floydImage)
             );
         }
         userInput.clear();

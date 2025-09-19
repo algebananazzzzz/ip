@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box in the UI, consisting of a {@link Label} for text
@@ -47,6 +48,12 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitWidth(64);
+        displayPicture.setFitHeight(64);
+        displayPicture.setPreserveRatio(true);
+
+        Circle clip = new Circle(32, 32, 32);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -62,6 +69,23 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
+    }
+
+    /**
+     * Flips the dialog box so that the {@link ImageView} appears on the left
+     * and the text {@link Label} appears on the right
+     * and add error styles to the label.
+     * <p>
+     * This is used to visually distinguish different speakers in the UI.
+     * </p>
+     */
+    private void error() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
+        dialog.getStyleClass().add("error");
     }
 
     /**
@@ -86,6 +110,20 @@ public class DialogBox extends HBox {
     public static DialogBox getFloydDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        return db;
+    }
+
+    /**
+     * Creates a dialog box representing error messages
+     * The box is flipped so the image appears on the left side.
+     *
+     * @param text the text of Floyd's message
+     * @param img  the system's display image
+     * @return a {@code DialogBox} for Floyd
+     */
+    public static DialogBox getErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.error();
         return db;
     }
 }
